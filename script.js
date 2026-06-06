@@ -451,3 +451,59 @@ function initReveal(){
   },{threshold:.08});
   els.forEach(r=>obs.observe(r));
 }
+
+/* ── CERTIFICATIONS TOGGLE ───────────────────────── */
+(function initCertToggle(){
+  const expandBtn   = document.getElementById('certExpandBtn');
+  const collapseBtn = document.getElementById('certCollapseBtn');
+  const extras      = document.querySelectorAll('.cert-extra');
+  if(!expandBtn || !collapseBtn) return;
+
+  expandBtn.addEventListener('click', function(){
+    extras.forEach(function(el){
+      el.classList.remove('hidden');
+      el.classList.add('visible-extra');
+    });
+    expandBtn.classList.add('hidden');
+    collapseBtn.classList.remove('hidden');
+    expandBtn.setAttribute('aria-expanded','true');
+    // Re-trigger dot animation for new items
+    setTimeout(function(){
+      extras.forEach(function(item){
+        item.classList.add('dot-visible');
+      });
+    }, 100);
+  });
+
+  collapseBtn.addEventListener('click', function(){
+    extras.forEach(function(el){
+      el.classList.remove('visible-extra');
+      el.classList.add('hidden');
+      el.classList.remove('dot-visible');
+    });
+    collapseBtn.classList.add('hidden');
+    expandBtn.classList.remove('hidden');
+    expandBtn.setAttribute('aria-expanded','false');
+    // Scroll back to certs section
+    document.getElementById('certifications').scrollIntoView({behavior:'smooth', block:'start'});
+  });
+})();
+
+/* ── NAV ACTIVE SECTION INDICATOR ───────────────── */
+(function initActiveNav(){
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  if(!navLinks.length) return;
+
+  const obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        navLinks.forEach(function(a){
+          a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id);
+        });
+      }
+    });
+  }, { threshold: 0.4, rootMargin: '-60px 0px -40% 0px' });
+
+  sections.forEach(function(s){ obs.observe(s); });
+})();

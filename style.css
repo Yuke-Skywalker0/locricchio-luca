@@ -689,3 +689,125 @@ footer {
   .about-stats { grid-template-columns:1fr; }
   .hero-name { font-size:clamp(2.6rem,14vw,4rem); }
 }
+
+/* ══════════════════════════════════════════════════
+   ADDITIONS v2.1
+   ══════════════════════════════════════════════════ */
+
+/* ── SKIP LINK ───────────────────────────────────── */
+.skip-link {
+  position:absolute; left:-9999px; top:0; z-index:9999;
+  background:#000; color:var(--electric);
+  padding:.5rem 1rem; font-family:'JetBrains Mono',monospace;
+  font-size:.75rem; letter-spacing:.1em;
+}
+.skip-link:focus { left:0; }
+
+/* ── CERT HIDDEN / TOGGLE ────────────────────────── */
+.timeline-item.hidden {
+  display:none;
+}
+.timeline-item.cert-extra.visible-extra {
+  display:block;
+  animation:fadeUp .5s ease forwards;
+}
+
+.cert-toggle-wrap {
+  display:flex; flex-direction:column; align-items:center;
+  gap:.8rem; margin-top:2.5rem;
+}
+.cert-toggle-btn {
+  font-family:'JetBrains Mono',monospace; font-size:.75rem;
+  letter-spacing:.15em; text-transform:uppercase;
+  color:var(--electric); border:1px solid var(--border-hover);
+  background:rgba(79,195,247,.05); padding:.75rem 2rem;
+  cursor:pointer; transition:all .3s; position:relative; overflow:hidden;
+}
+.cert-toggle-btn::before {
+  content:''; position:absolute; top:0; left:-100%; width:100%; height:100%;
+  background:linear-gradient(90deg,transparent,rgba(79,195,247,.12),transparent);
+  transition:left .4s;
+}
+.cert-toggle-btn:hover::before { left:100%; }
+.cert-toggle-btn:hover {
+  background:rgba(79,195,247,.12);
+  box-shadow:0 0 24px rgba(79,195,247,.18);
+}
+.cert-toggle-btn.hidden { display:none; }
+
+/* ── FOOTER WHITE ────────────────────────────────── */
+footer {
+  background:#fff;
+  border-top:none;
+  color:#0a0a28;
+}
+footer p { color:#0a0a28; }
+.footer-sub {
+  margin-top:.4rem; font-size:.58rem;
+  opacity:.5; letter-spacing:.08em;
+}
+
+/* ── IMPROVED MOBILE UX ──────────────────────────── */
+
+/* Larger tap targets on mobile */
+@media(max-width:768px){
+  .btn-primary,.btn-ghost,.btn-download,.cert-toggle-btn {
+    min-height:48px; display:flex; align-items:center; justify-content:center;
+  }
+  .social-link { min-height:48px; }
+  .nav-hamburger { min-width:44px; min-height:44px; justify-content:center; align-items:center; }
+
+  /* Story layout tighter on mobile */
+  .story-block { grid-template-columns:50px 1fr; gap:1rem; padding:2rem 0; }
+  .story-year { font-size:.58rem; padding-top:.3rem; }
+  .story-content h3 { font-size:.95rem; }
+  .story-content p { font-size:.84rem; }
+
+  /* Soft skills 2 columns on mobile */
+  .soft-grid { grid-template-columns:1fr 1fr; gap:.8rem; }
+  .soft-card { padding:1.1rem .9rem; }
+  .soft-icon { font-size:1.3rem; margin-bottom:.5rem; }
+  .soft-label { font-size:.65rem; }
+
+  /* Projects single column already handled */
+  .project-card { padding:1.5rem; }
+  .project-title { font-size:1.05rem; }
+
+  /* Timeline */
+  .timeline { padding-left:1.2rem; }
+  .cert-title { font-size:.88rem; }
+  .cert-issuer { font-size:.72rem; }
+
+  /* Download section */
+  .download-inner { padding:2rem 1.2rem; }
+  .btn-download { padding:.85rem 1.5rem; font-size:.72rem; }
+
+  /* Contact links stack better */
+  .contact-links { gap:.8rem; }
+  .social-link { padding:.85rem 1.2rem; font-size:.7rem; }
+
+  /* Footer on mobile */
+  footer { padding:1.8rem 1.2rem; }
+}
+
+/* Extra small devices */
+@media(max-width:380px){
+  .soft-grid { grid-template-columns:1fr; }
+  .about-stats { grid-template-columns:1fr 1fr; }
+  .hero-name { font-size:clamp(2.4rem,13vw,3.5rem); }
+  .contact-links { flex-direction:column; align-items:stretch; }
+  .social-link { justify-content:center; }
+}
+
+/* ── IMPROVED SCROLL PADDING (anchor offset) ─────── */
+html { scroll-padding-top:80px; }
+@media(max-width:768px){ html { scroll-padding-top:65px; } }
+
+/* ── NAV ACTIVE INDICATOR ────────────────────────── */
+.nav-links a.active { color:var(--electric); }
+.nav-links a.active::after { width:100%; }
+
+/* ── TOUCH: remove tilt on mobile ───────────────── */
+@media(hover:none){
+  .tilt-card:hover { transform:none !important; box-shadow:none !important; }
+}
