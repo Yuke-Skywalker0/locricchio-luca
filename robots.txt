@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://locricchio-luca.github.io/sitemap.xml
+
+# Portfolio di Luca Lo Cricchio — Full Stack Developer, Monza
