@@ -631,8 +631,9 @@ footer {
   padding:2rem 1.5rem;
   border-top:1px solid rgba(79,195,247,.06);
   font-family:'JetBrains Mono',monospace; font-size:.62rem;
-  color:rgba(240,244,255,.2); letter-spacing:.1em;
+  color:var(--white); letter-spacing:.1em;
   line-height:1.8;
+  background:transparent;
 }
 
 /* ── REVEAL ANIMATIONS ───────────────────────────── */
@@ -735,13 +736,13 @@ footer {
 }
 .cert-toggle-btn.hidden { display:none; }
 
-/* ── FOOTER WHITE ────────────────────────────────── */
+/* ── FOOTER ──────────────────────────────────────── */
 footer {
-  background:#fff;
-  border-top:none;
-  color:#0a0a28;
+  background:transparent;
+  border-top:1px solid rgba(79,195,247,.06);
+  color:var(--white);
 }
-footer p { color:#0a0a28; }
+footer p { color:rgba(240,244,255,.85); }
 .footer-sub {
   margin-top:.4rem; font-size:.58rem;
   opacity:.5; letter-spacing:.08em;

@@ -1,6 +1,6 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://locricchio-luca.github.io/sitemap.xml
+Sitemap: https://yuke-skywalker0.github.io/locricchio-luca/sitemap.xml
 
-# Portfolio di Luca Lo Cricchio — Full Stack Developer, Monza
+# Portfolio of Luca Lo Cricchio — Full Stack Developer, Monza, Italy
