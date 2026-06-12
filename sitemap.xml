@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://yuke-skywalker0.github.io/locricchio-luca/</loc>
-    <lastmod>2026-06-11</lastmod>
+    <lastmod>2026-06-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://yuke-skywalker0.github.io/locricchio-luca/favicon-512.png</image:loc>
+      <image:title>Luca Lo Cricchio — Full Stack Developer</image:title>
+      <image:caption>Luca Lo Cricchio, Full Stack Developer from Monza, Italy</image:caption>
+    </image:image>
   </url>
-
 </urlset>
