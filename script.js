@@ -287,7 +287,7 @@ function initWarp(){
 
 /* ── TYPEWRITER ──────────────────────────────────── */
 function startTypewriter(){
-  const words=['Full Stack Developer','Digital Systems Builder','Marketing Automation Expert','Problem Architect','Future Engineer'];
+  const words=['Full Stack Developer','AI Junior Developer @ HQ Engineering','Digital Systems Builder','Marketing Automation Expert','Problem Architect'];
   let wi=0,ci=0,deleting=false;
   const tw=document.getElementById('typewriter');
   function type(){
@@ -507,3 +507,21 @@ function initReveal(){
 
   sections.forEach(function(s){ obs.observe(s); });
 })();
+
+/* ── LUCIDE ICONS INIT ───────────────────────────── */
+document.addEventListener('DOMContentLoaded', function() {
+  if (typeof lucide !== 'undefined') {
+    lucide.createIcons();
+  }
+});
+// Also init after site becomes visible (intro hides DOM)
+document.getElementById('enterBtn').addEventListener('click', function() {
+  setTimeout(function() {
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+  }, 1500);
+}, { once: true });
+document.getElementById('skipBtn').addEventListener('click', function() {
+  setTimeout(function() {
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+  }, 1500);
+}, { once: true });
