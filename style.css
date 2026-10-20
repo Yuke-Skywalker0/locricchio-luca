@@ -919,3 +919,17 @@ html { scroll-padding-top:80px; }
   display:flex; align-items:center; justify-content:center;
   height:36px; margin-bottom:.7rem;
 }
+
+
+/* ══════ v2.3 — inline SVG icons (replaces [data-lucide]) ══════ */
+svg.lucide {
+  display:inline-block; vertical-align:middle; flex-shrink:0;
+}
+.category-icon svg, .cat-icon { width:20px; height:20px; color:var(--electric); }
+.soft-icon svg { width:28px; height:28px; color:var(--electric); }
+.download-icon svg, .download-lucide { width:48px; height:48px; color:var(--electric); display:block; margin:0 auto 1.5rem; }
+.social-icon svg { width:16px; height:16px; }
+.project-link svg { width:14px; height:14px; }
+.project-status svg { width:10px; height:10px; }
+.project-status--dev svg { color:#f59e0b; animation:pulse-dot 2s ease-in-out infinite; }
+.project-link--wip svg { color:rgba(240,244,255,.3); }

@@ -507,21 +507,3 @@ function initReveal(){
 
   sections.forEach(function(s){ obs.observe(s); });
 })();
-
-/* ── LUCIDE ICONS INIT ───────────────────────────── */
-document.addEventListener('DOMContentLoaded', function() {
-  if (typeof lucide !== 'undefined') {
-    lucide.createIcons();
-  }
-});
-// Also init after site becomes visible (intro hides DOM)
-document.getElementById('enterBtn').addEventListener('click', function() {
-  setTimeout(function() {
-    if (typeof lucide !== 'undefined') lucide.createIcons();
-  }, 1500);
-}, { once: true });
-document.getElementById('skipBtn').addEventListener('click', function() {
-  setTimeout(function() {
-    if (typeof lucide !== 'undefined') lucide.createIcons();
-  }, 1500);
-}, { once: true });
