@@ -1,0 +1,56 @@
+---
+const title = 'Luca Lo Cricchio — Portfolio';
+const description = 'Portfolio migration scaffold. The complete homepage will be migrated in the next phase.';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <main>
+      <h1>Portfolio migration in progress</h1>
+      <p>This temporary Astro page is used only to validate the project setup.</p>
+      <p>The complete portfolio homepage will be migrated in the next phase.</p>
+    </main>
+  </body>
+</html>
+
+<style>
+  :global(*) {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 2rem;
+    background: #050510;
+    color: #eaf6ff;
+    font-family: system-ui, sans-serif;
+  }
+
+  main {
+    width: min(100%, 42rem);
+    padding: 2rem;
+    border: 1px solid rgb(79 195 247 / 25%);
+    border-radius: 1rem;
+    background: rgb(255 255 255 / 3%);
+  }
+
+  h1 {
+    color: #4fc3f7;
+  }
+
+  p {
+    line-height: 1.7;
+    color: #b8c7d9;
+  }
+</style>
