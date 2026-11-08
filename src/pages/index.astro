@@ -1,56 +1,678 @@
 ---
-const title = 'Luca Lo Cricchio — Portfolio';
-const description = 'Portfolio migration scaffold. The complete homepage will be migrated in the next phase.';
+import SiteLayout from "../layouts/SiteLayout.astro";
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content={description} />
-    <meta name="robots" content="noindex, nofollow" />
-    <title>{title}</title>
-  </head>
-  <body>
-    <main>
-      <h1>Portfolio migration in progress</h1>
-      <p>This temporary Astro page is used only to validate the project setup.</p>
-      <p>The complete portfolio homepage will be migrated in the next phase.</p>
-    </main>
-  </body>
-</html>
+<SiteLayout>
 
-<style>
-  :global(*) {
-    box-sizing: border-box;
-  }
+  <a href="#main-content" class="skip-link">Skip to main content</a>
 
-  body {
-    margin: 0;
-    min-height: 100vh;
-    display: grid;
-    place-items: center;
-    padding: 2rem;
-    background: #050510;
-    color: #eaf6ff;
-    font-family: system-ui, sans-serif;
-  }
+  <div id="cursor" aria-hidden="true"></div>
+  <div id="cursor-ring" aria-hidden="true"></div>
+  <div id="warp" aria-hidden="true"><canvas id="warp-canvas"></canvas></div>
 
-  main {
-    width: min(100%, 42rem);
-    padding: 2rem;
-    border: 1px solid rgb(79 195 247 / 25%);
-    border-radius: 1rem;
-    background: rgb(255 255 255 / 3%);
-  }
+  <!-- ════════════════ INTRO (aria-hidden from crawlers) ════════════════ -->
+  <div id="intro" role="presentation" aria-hidden="true">
+    <canvas id="intro-canvas"></canvas>
+    <div class="intro-text">
+      <p class="intro-singularity">— Singularity detected —</p>
+      <p class="intro-year">T = 0 &nbsp;|&nbsp; ΔE → ∞</p>
+      <!-- Decorative — real H1 is in #hero below -->
+      <p class="intro-name">Luca<br>Lo Cricchio</p>
+      <p class="intro-tagline">Full Stack Developer · Digital Systems &amp; Marketing Automation</p>
+      <div class="intro-enter">
+        <button class="btn-enter" id="enterBtn">Enter the Universe →</button>
+      </div>
+    </div>
+    <div class="intro-bar"></div>
+    <div class="intro-skip" id="skipBtn" role="button" tabindex="0" aria-label="Skip intro animation">Skip intro</div>
+  </div>
 
-  h1 {
-    color: #4fc3f7;
-  }
+  <!-- ════════════════ SITE ════════════════ -->
+  <div id="site">
+    <canvas id="universe" aria-hidden="true"></canvas>
 
-  p {
-    line-height: 1.7;
-    color: #b8c7d9;
-  }
-</style>
+    <!-- NAV -->
+    <nav id="mainnav" role="navigation" aria-label="Main navigation">
+      <a href="#hero" class="nav-logo" aria-label="Luca Lo Cricchio — back to top">LLC.dev</a>
+      <ul class="nav-links" role="list">
+        <li><a href="#about">About</a></li>
+        <li><a href="#story">Story</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#softskills">Soft Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#certifications">Certs</a></li>
+        <li><a href="#download">CV</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="nav-hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <!-- MOBILE MENU -->
+    <div class="nav-mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+      <a href="#about">About</a>
+      <a href="#story">Story</a>
+      <a href="#skills">Skills</a>
+      <a href="#softskills">Soft Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#certifications">Certs</a>
+      <a href="#download">CV</a>
+      <a href="#contact">Contact</a>
+    </div>
+
+    <!-- ════ H1 — sole H1 of the page, in hero ════ -->
+    <section id="hero" aria-labelledby="hero-h1">
+      <p class="hero-eyebrow">// Portfolio v2.0 — Live</p>
+      <h1 class="hero-name" id="hero-h1">
+        <span class="hero-name-first">Luca</span><br>
+        <span class="hero-name-last">Lo Cricchio</span>
+      </h1>
+      <div class="hero-typewriter-wrap" aria-live="polite" aria-atomic="true">
+        <span class="hero-prefix">//</span>
+        <span id="typewriter"></span>
+      </div>
+      <div class="hero-cta">
+        <a href="#projects" class="btn-primary">Explore Projects</a>
+        <a href="#contact" class="btn-ghost">Get in Touch ↗</a>
+      </div>
+      <div class="hero-scroll-hint" aria-hidden="true">
+        <div class="scroll-line"></div>
+        <span class="scroll-label">Scroll</span>
+      </div>
+    </section>
+
+    <!-- ════ MAIN CONTENT wrapper — all H2s live here ════ -->
+    <main id="main-content">
+
+      <!-- ── ABOUT ────────────────────────────────── -->
+      <section id="about" aria-labelledby="about-h2">
+        <div class="about-grid">
+          <div class="reveal-left">
+            <p class="section-label">About</p>
+            <!-- H2: section title -->
+            <h2 class="scramble-heading" id="about-h2" data-text="I don't write code.<br>I architect systems.">I don't write code.<br>I architect systems.</h2>
+            <p class="about-text">I'm <strong>Luca Lo Cricchio</strong> — a Full Stack Developer from Monza, Italy. While most people my age were still figuring out HTML, I was already building real digital systems. I didn't wait for permission. I started doing.</p>
+            <p class="about-text">My approach is that of a <strong>digital architect</strong>: I think in full systems before writing a single line. From front-end to back-end, from relational databases to advertising campaigns, from automation to the creative direction of a game studio — every piece has to fit perfectly.</p>
+            <p class="about-text">I've already worked with real clients, managed campaigns reaching thousands of impressions, and co-founded a video game studio. This isn't ambition — it's already history.</p>
+            <div class="about-stats" role="list">
+              <div class="stat-card" role="listitem">
+                <div class="stat-num counter" data-target="6">0</div>
+                <div class="stat-desc">Projects shipped</div>
+              </div>
+              <div class="stat-card" role="listitem">
+                <div class="stat-num">15+</div>
+                <div class="stat-desc">Certifications</div>
+              </div>
+              <div class="stat-card" role="listitem">
+                <div class="stat-num counter" data-target="5">0</div>
+                <div class="stat-desc">Years of study</div>
+              </div>
+              <div class="stat-card" role="listitem">
+                <div class="stat-num counter" data-target="100" data-suffix="%">0%</div>
+                <div class="stat-desc">Committed</div>
+              </div>
+            </div>
+          </div>
+          <div class="about-visual reveal-right">
+            <div class="about-photo-wrap">
+              <div class="about-photo-frame">
+                <img
+                  class="about-photo"
+                  src="profile-photo.jpg"
+                  alt="Luca Lo Cricchio — Full Stack Developer from Monza, Italy"
+                  width="380" height="507"
+                  loading="eager"
+                  fetchpriority="high"
+                >
+                <div class="about-photo-tag">
+                  <span>Monza, Italy · 2026</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── STORY ────────────────────────────────── -->
+      <section id="story" aria-labelledby="story-h2">
+        <div class="story-inner">
+          <div class="story-header reveal">
+            <p class="section-label">Origin Story</p>
+            <!-- H2 -->
+            <h2 class="scramble-heading" id="story-h2" data-text="How a developer<br>is forged">How a developer<br>is forged</h2>
+          </div>
+          <div class="story-body">
+
+            <div class="story-block reveal">
+              <div class="story-year"><time datetime="2021">2021</time></div>
+              <div class="story-content">
+                <!-- H3: subsection under story H2 -->
+                <h3>The beginning: ITIS Ettore Molinari</h3>
+                <p>At 14 I enrolled at ITIS Ettore Molinari in Milan to study Computer Science. I immediately understood that school is a launchpad, not a ceiling. Every concept learned in class became a brick for building something real outside.</p>
+              </div>
+            </div>
+
+            <div class="story-block reveal">
+              <div class="story-year"><time datetime="2023">2023</time></div>
+              <div class="story-content">
+                <h3>LSD Software Studio: building worlds</h3>
+                <p>In November 2023 I co-founded <strong>LSD Software</strong> — a video game studio. I became lead developer and creative director. Not theory: real production. I shipped <em>Card Game</em>, a casino-themed guess game, and <em>P-E-S-C-A</em>, an original point &amp; click adventure.</p>
+                <p>Learning to manage a creative project, coordinate a vision, and turn an idea into a product people can actually play — that was my first real lesson in leadership.</p>
+              </div>
+            </div>
+
+            <div class="story-block reveal">
+              <div class="story-year"><time datetime="2024">2024</time></div>
+              <div class="story-content">
+                <h3>The real world: internship at EUDEMONIA SRL</h3>
+                <p>June 2024. First real internship, first company, first real client. At <strong>EUDEMONIA SRL</strong> I managed campaigns on Google Ads, Meta Business Suite and Amazon Business. I analysed traffic data, optimised performance, and built <em>idraulicoservizi.com</em> from scratch with WordPress and SEO.</p>
+                <p>I discovered that code is only half the game. The other half is understanding what the client wants, what their audience searches for, and how to translate data into decisions.</p>
+              </div>
+            </div>
+
+            <div class="story-block reveal">
+              <div class="story-year"><time datetime="2024">2024–25</time></div>
+              <div class="story-content">
+                <h3>Certifications, expansion, new horizons</h3>
+                <p>While others sleep, I study. Oracle Academy, Cisco, Sorint.Lab: database design, networking, Python, React Native, Docker, AWS, web security, AI for developers. Every certification isn't a badge — it's another tool in the kit.</p>
+                <p>I shipped <em>LSD Console</em>, a 2D home-console-style title, and started <strong>Project Arcana</strong>, a psychological 3D story-driven game. The technical complexity rises — and so do I.</p>
+              </div>
+            </div>
+
+            <div class="story-block reveal">
+              <div class="story-year"><time datetime="2025">2025</time></div>
+              <div class="story-content">
+                <h3>Back in the field: impresaedileabilart.com</h3>
+                <p>Second internship at EUDEMONIA. This time I managed everything independently: site structure, SEO content, advertising campaigns and direct client contact. <em>impresaedileabilart.com</em> went live — a complete digital system conceived and built by me.</p>
+              </div>
+            </div>
+
+            <div class="story-block reveal">
+              <div class="story-year"><time datetime="2026">2026</time></div>
+              <div class="story-content">
+                <h3>Diploma and next chapter</h3>
+                <p>July 2026: Computer Science diploma from ITIS Ettore Molinari. The diploma is a starting point, not a finish line. I already have skills that most people chase for years, real-world experience, and a portfolio that speaks for itself.</p>
+                <p>The next chapter is being written right now. And it will be the most interesting one yet.</p>
+              </div>
+            </div>
+
+            <div class="story-block reveal story-present">
+              <div class="story-year"><time datetime="2026">2026 — Now</time></div>
+              <div class="story-content">
+                <h3>AI Engineering: building intelligent systems</h3>
+                <p>In September 2026, I joined <strong>HQ Engineering</strong> as an AI Junior Developer. My work focuses on building intelligent systems, AI-powered automations, software infrastructure and digital services.</p>
+                <p>I work across Full Stack development, OCR and document processing, locally deployed AI models, SaaS applications and smart automation systems. My goal is to turn complex workflows into practical, integrated solutions.</p>
+                <p>This marks the next step in my journey: moving from independent projects to developing technology-driven solutions in a professional environment.</p>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ── SKILLS ───────────────────────────────── -->
+      <section id="skills" aria-labelledby="skills-h2">
+        <div class="skills-header reveal">
+          <p class="section-label" style="justify-content:center;">Arsenal</p>
+          <!-- H2 -->
+          <h2 class="skills-heading scramble-heading" id="skills-h2" data-text="Tech Stack">Tech Stack</h2>
+        </div>
+        <div class="skills-grid">
+
+          <div class="skill-category reveal">
+            <div class="category-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" class="lucide lucide-brain cat-icon"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/><path d="M17.599 6.5a3 3 0 0 0 .399-1.375"/><path d="M6.003 5.125A3 3 0 0 0 6.401 6.5"/><path d="M3.477 10.896a4 4 0 0 1 .585-.396"/><path d="M19.938 10.5a4 4 0 0 1 .585.396"/><path d="M6 18a4 4 0 0 1-1.967-.516"/><path d="M19.967 17.484A4 4 0 0 1 18 18"/></svg></div>
+            <h3 class="category-title">AI Engineering &amp; Automation</h3>
+            <div class="skill-bar-wrap"><div class="skill-bar-label"><span>AI Integration</span><span class="skill-bar-pct">78%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-pct="78"></div></div></div>
+            <div class="skill-bar-wrap"><div class="skill-bar-label"><span>AI-Powered Automation</span><span class="skill-bar-pct">75%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-pct="75"></div></div></div>
+            <div class="skill-bar-wrap"><div class="skill-bar-label"><span>OCR &amp; Document Processing</span><span class="skill-bar-pct">72%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-pct="72"></div></div></div>
+            <div class="skill-bar-wrap"><div class="skill-bar-label"><span>Local AI Model Deployment</span><span class="skill-bar-pct">68%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-pct="68"></div></div></div>
+          </div>
+
+          <div class="skill-category reveal">
+            <div class="category-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" class="lucide lucide-monitor cat-icon"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg></div>
+            <!-- H3: category under Tech Stack H2 -->
+            <h3 class="category-title">Frontend</h3>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-label"><span>HTML5 / CSS3</span><span class="skill-bar-pct">90%</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="90" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" aria-label="HTML5 and CSS3: 90%"></div></div>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-label"><span>JavaScript</span><span class="skill-bar-pct">82%</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="82" role="progressbar" aria-valuenow="82" aria-valuemin="0" aria-valuemax="100" aria-label="JavaScript: 82%"></div></div>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-label"><span>React / React Native</span><span class="skill-bar-pct">72%</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="72"></div></div>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-label"><span>WordPress + SEO</span><span class="skill-bar-pct">80%</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="80"></div></div>
+            </div>
+          </div>
+
+          <div class="skill-category reveal">
+            <div class="category-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" class="lucide lucide-server cat-icon"><rect width="20" height="8" x="2" y="2" rx="2"/><rect width="20" height="8" x="2" y="14" rx="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/></svg></div>
+            <h3 class="category-title">Backend</h3>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-label"><span>Java</span><span class="skill-bar-pct">85%</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="85"></div></div>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-label"><span>Python</span><span class="skill-bar-pct">78%</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="78"></div></div>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-label"><span>Node.js</span><span class="skill-bar-pct">70%</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="70"></div></div>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-label"><span>REST APIs</span><span class="skill-bar-pct">75%</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="75"></div></div>
+            </div>
+          </div>
+
+          <div class="skill-category reveal">
+            <div class="category-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" class="lucide lucide-database cat-icon"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></svg></div>
+            <h3 class="category-title">Database</h3>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-label"><span>SQL / MySQL</span><span class="skill-bar-pct">88%</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="88"></div></div>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-label"><span>OracleDB</span><span class="skill-bar-pct">82%</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="82"></div></div>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-label"><span>MongoDB</span><span class="skill-bar-pct">65%</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="65"></div></div>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-label"><span>Database Design</span><span class="skill-bar-pct">80%</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="80"></div></div>
+            </div>
+          </div>
+
+          <div class="skill-category reveal">
+            <div class="category-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" class="lucide lucide-wrench cat-icon"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+            <h3 class="category-title">Tools &amp; Infrastructure</h3>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-label"><span>Git / GitHub</span><span class="skill-bar-pct">88%</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="88"></div></div>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-label"><span>Docker</span><span class="skill-bar-pct">65%</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="65"></div></div>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-label"><span>AWS Cloud</span><span class="skill-bar-pct">55%</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="55"></div></div>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-label"><span>AI &amp; Prompting</span><span class="skill-bar-pct">85%</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="85"></div></div>
+            </div>
+          </div>
+
+          <div class="skill-category reveal">
+            <div class="category-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" class="lucide lucide-megaphone cat-icon"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></div>
+            <h3 class="category-title">Digital Marketing</h3>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-label"><span>Google Ads</span><span class="skill-bar-pct">82%</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="82"></div></div>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-label"><span>Meta Business Suite</span><span class="skill-bar-pct">80%</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="80"></div></div>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-label"><span>Google Analytics</span><span class="skill-bar-pct">75%</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="75"></div></div>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-label"><span>Amazon Ads</span><span class="skill-bar-pct">68%</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="68"></div></div>
+            </div>
+          </div>
+
+          <div class="skill-category reveal">
+            <div class="category-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" class="lucide lucide-shield cat-icon"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg></div>
+            <h3 class="category-title">Security &amp; Networks</h3>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-label"><span>Networking (CCNA)</span><span class="skill-bar-pct">72%</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="72"></div></div>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-label"><span>Web App Security</span><span class="skill-bar-pct">65%</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="65"></div></div>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-label"><span>IT Essentials</span><span class="skill-bar-pct">78%</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="78"></div></div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ── SOFT SKILLS ──────────────────────────── -->
+      <section id="softskills" aria-labelledby="soft-h2">
+        <div class="soft-header reveal">
+          <p class="section-label" style="justify-content:center;">Human first</p>
+          <!-- H2 -->
+          <h2 class="skills-heading scramble-heading" id="soft-h2" data-text="Soft Skills">Soft Skills</h2>
+        </div>
+        <div class="soft-grid">
+          <div class="soft-card reveal"><div class="soft-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" class="lucide lucide-puzzle"><path d="M19.439 7.85c-.049.322.059.648.289.878l1.568 1.568c.47.47.706 1.087.706 1.704s-.235 1.233-.706 1.704l-1.611 1.611a.98.98 0 0 1-.837.276c-.47-.07-.802-.48-.968-.925a2.501 2.501 0 1 0-3.214 3.214c.446.166.855.497.925.968a.979.979 0 0 1-.276.837l-1.61 1.61a2.404 2.404 0 0 1-3.408 0l-1.569-1.568a.878.878 0 0 0-.879-.289 2.42 2.42 0 0 1-2.962-2.963.878.878 0 0 0-.29-.878l-1.567-1.567a2.414 2.414 0 0 1 0-3.408l1.61-1.611a.979.979 0 0 1 .837-.276c.47.07.802.48.968.925a2.501 2.501 0 1 0 3.214-3.214c-.446-.166-.855-.497-.925-.968a.979.979 0 0 1 .276-.837l1.61-1.61a2.414 2.414 0 0 1 3.408 0Z"/></svg></div><p class="soft-label">Advanced Problem Solving</p></div>
+          <div class="soft-card reveal"><div class="soft-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" class="lucide lucide-search"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div><p class="soft-label">Analytical Critical Thinking</p></div>
+          <div class="soft-card reveal"><div class="soft-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" class="lucide lucide-message-circle"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg></div><p class="soft-label">Effective Communication</p></div>
+          <div class="soft-card reveal"><div class="soft-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" class="lucide lucide-handshake"><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"/><path d="m21 3 1 11h-1"/><path d="M3 3 2 14l6.5 6.5"/><path d="M3 4h8"/></svg></div><p class="soft-label">Teamwork &amp; Collaboration</p></div>
+          <div class="soft-card reveal"><div class="soft-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" class="lucide lucide-target"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div><p class="soft-label">Leadership &amp; Project Management</p></div>
+          <div class="soft-card reveal"><div class="soft-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" class="lucide lucide-lightbulb"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg></div><p class="soft-label">Applied Creativity</p></div>
+          <div class="soft-card reveal"><div class="soft-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" class="lucide lucide-timer"><line x1="10" x2="14" y1="2" y2="2"/><line x1="12" x2="15" y1="14" y2="11"/><circle cx="12" cy="14" r="8"/></svg></div><p class="soft-label">Time Management</p></div>
+          <div class="soft-card reveal"><div class="soft-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" class="lucide lucide-zap"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg></div><p class="soft-label">Technical Adaptability</p></div>
+          <div class="soft-card reveal"><div class="soft-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" class="lucide lucide-ear"><path d="M6 8.5a6.5 6.5 0 1 1 13 0c0 6-6 6-6 10a3.5 3.5 0 0 1-7 0"/><path d="M15 8.5a2.5 2.5 0 0 0-5 0v1a2 2 0 1 0 4 0"/></svg></div><p class="soft-label">Active Listening</p></div>
+          <div class="soft-card reveal"><div class="soft-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" class="lucide lucide-rocket"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg></div><p class="soft-label">Initiative &amp; Drive</p></div>
+          <div class="soft-card reveal"><div class="soft-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" class="lucide lucide-bot"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg></div><p class="soft-label">AI Operational Autonomy</p></div>
+          <div class="soft-card reveal"><div class="soft-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" class="lucide lucide-flame"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg></div><p class="soft-label">Execution-Oriented Mindset</p></div>
+        </div>
+      </section>
+
+      <!-- ── PROJECTS ─────────────────────────────── -->
+      <section id="projects" aria-labelledby="projects-h2">
+        <div class="projects-header reveal">
+          <p class="section-label" style="justify-content:center;">Work</p>
+          <!-- H2 -->
+          <h2 class="projects-heading scramble-heading" id="projects-h2" data-text="Selected Projects">Selected Projects</h2>
+        </div>
+        <div class="projects-grid">
+
+
+          <article class="project-card tilt-card reveal project-featured" itemscope itemtype="https://schema.org/CreativeWork">
+            <meta itemprop="author" content="Luca Lo Cricchio">
+            <meta itemprop="dateCreated" content="2026-09-01">
+            <div class="project-number">// 001</div>
+            <div class="project-status project-status--dev"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" class="lucide lucide-circle-dot"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="1"/></svg> In development</div>
+            <h3 class="project-title" itemprop="name">ForgeSite</h3>
+            <p class="project-category">SaaS · Web Development · AI</p>
+            <p class="project-desc" itemprop="description">A modular website-building platform designed to simplify website creation and management through visual editing, reusable components and AI-assisted workflows.</p>
+            <div class="project-tech" aria-label="Technologies used">
+              <span class="project-tag">React</span>
+              <span class="project-tag">TypeScript</span>
+              <span class="project-tag">Node.js</span>
+              <span class="project-tag">MongoDB</span>
+              <span class="project-tag">GitHub Integration</span>
+            </div>
+            <div class="project-links">
+              <span class="project-link project-link--wip"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" class="lucide lucide-clock"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Coming soon</span>
+            </div>
+          </article>
+
+          <article class="project-card tilt-card reveal project-featured" itemscope itemtype="https://schema.org/CreativeWork">
+            <meta itemprop="author" content="Luca Lo Cricchio">
+            <meta itemprop="dateCreated" content="2026-09-01">
+            <div class="project-number">// 002</div>
+            <div class="project-status project-status--dev"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" class="lucide lucide-circle-dot"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="1"/></svg> In development</div>
+            <h3 class="project-title" itemprop="name">Finora</h3>
+            <p class="project-category">Personal Finance · Full Stack</p>
+            <p class="project-desc" itemprop="description">A personal finance application focused on expense tracking, account management, budgeting and financial analytics. Designed around a privacy-conscious architecture and a responsive dark interface.</p>
+            <div class="project-tech" aria-label="Technologies used">
+              <span class="project-tag">JavaScript</span>
+              <span class="project-tag">API Integration</span>
+              <span class="project-tag">Full Stack</span>
+              <span class="project-tag">Database</span>
+            </div>
+            <div class="project-links">
+              <span class="project-link project-link--wip"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" class="lucide lucide-clock"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Coming soon</span>
+            </div>
+          </article>
+
+          <article class="project-card tilt-card reveal project-featured" itemscope itemtype="https://schema.org/CreativeWork">
+            <meta itemprop="author" content="Luca Lo Cricchio">
+            <meta itemprop="dateCreated" content="2026-09-01">
+            <div class="project-number">// 003</div>
+            <div class="project-status project-status--dev"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" class="lucide lucide-circle-dot"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="1"/></svg> In development</div>
+            <h3 class="project-title" itemprop="name">IronTrack</h3>
+            <p class="project-category">Fitness · Mobile-First Web App</p>
+            <p class="project-desc" itemprop="description">A workout management platform for creating training plans, tracking exercises and recording performance over time, with a focus on personalized routines and training progress.</p>
+            <div class="project-tech" aria-label="Technologies used">
+              <span class="project-tag">Python</span>
+              <span class="project-tag">FastAPI</span>
+              <span class="project-tag">Web Development</span>
+              <span class="project-tag">Data Management</span>
+            </div>
+            <div class="project-links">
+              <span class="project-link project-link--wip"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" class="lucide lucide-clock"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Coming soon</span>
+            </div>
+          </article>
+
+          <article class="project-card tilt-card reveal" itemscope itemtype="https://schema.org/CreativeWork">
+            <meta itemprop="author" content="Luca Lo Cricchio">
+            <meta itemprop="dateCreated" content="2024-01-01">
+            <div class="project-number">// 004</div>
+            <!-- H3: project title under Selected Projects H2 -->
+            <h3 class="project-title" itemprop="name">idraulicoservizi.com</h3>
+            <p class="project-desc" itemprop="description">Full professional website for a plumbing company. SEO architecture, optimised content, Google Business integration and full advertising campaign structure — from design to launch.</p>
+            <div class="project-tech" aria-label="Technologies used">
+              <span class="project-tag">WordPress</span>
+              <span class="project-tag">SEO On-Page</span>
+              <span class="project-tag">Google Analytics</span>
+              <span class="project-tag">Google Ads</span>
+            </div>
+            <div class="project-links">
+              <a href="https://idraulicoservizi.com/" target="_blank" rel="noopener noreferrer" class="project-link" itemprop="url"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" class="lucide lucide-external-link"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg> Visit Site</a>
+            </div>
+          </article>
+
+          <article class="project-card tilt-card reveal" itemscope itemtype="https://schema.org/CreativeWork">
+            <meta itemprop="author" content="Luca Lo Cricchio">
+            <meta itemprop="dateCreated" content="2025-01-01">
+            <div class="project-number">// 005</div>
+            <h3 class="project-title" itemprop="name">impresaedileabilart.com</h3>
+            <p class="project-desc" itemprop="description">Complete digital system for a construction company: SEO-optimised WordPress site, Google Search Console setup, full advertising campaign design and optimisation. Direct client management from day one.</p>
+            <div class="project-tech" aria-label="Technologies used">
+              <span class="project-tag">WordPress</span>
+              <span class="project-tag">SEO</span>
+              <span class="project-tag">Google Search Console</span>
+              <span class="project-tag">Google Ads</span>
+              <span class="project-tag">Meta Ads</span>
+            </div>
+            <div class="project-links">
+              <a href="https://impresaedileabilart.com/" target="_blank" rel="noopener noreferrer" class="project-link" itemprop="url"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" class="lucide lucide-external-link"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg> Visit Site</a>
+            </div>
+          </article>
+
+          <article class="project-card tilt-card reveal" itemscope itemtype="https://schema.org/CreativeWork">
+            <meta itemprop="author" content="Luca Lo Cricchio">
+            <meta itemprop="dateCreated" content="2023-11-01">
+            <div class="project-number">// 006</div>
+            <h3 class="project-title" itemprop="name">LSD Software Studio</h3>
+            <p class="project-desc" itemprop="description">Game studio co-founded at 16. Lead developer and creative director. Published: Card Game (2D casino), P-E-S-C-A (point &amp; click), LSD Console. In development: Project Arcana (3D psychological) and The Machine.</p>
+            <div class="project-tech" aria-label="Technologies used">
+              <span class="project-tag">Game Dev 2D/3D</span>
+              <span class="project-tag">Creative Direction</span>
+              <span class="project-tag">Team Leadership</span>
+            </div>
+            <div class="project-links">
+              <a href="https://lsd-software.github.io" target="_blank" rel="noopener noreferrer" class="project-link" itemprop="url"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" class="lucide lucide-external-link"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg> LSD Software</a>
+            </div>
+          </article>
+
+          <article class="project-card tilt-card reveal" itemscope itemtype="https://schema.org/CreativeWork">
+            <meta itemprop="author" content="Luca Lo Cricchio">
+            <meta itemprop="dateCreated" content="2024-06-01">
+            <div class="project-number">// 007</div>
+            <h3 class="project-title" itemprop="name">Digital Marketing · EUDEMONIA SRL</h3>
+            <p class="project-desc" itemprop="description">Two internship periods (2024 &amp; 2025): designed and launched campaigns across Google Ads, Meta Business Suite and Amazon Business. Performance analysis with Google Analytics and Tag Manager. Real data, real results.</p>
+            <div class="project-tech" aria-label="Technologies used">
+              <span class="project-tag">Google Ads</span>
+              <span class="project-tag">Meta Ads</span>
+              <span class="project-tag">Amazon Ads</span>
+              <span class="project-tag">Analytics &amp; Tag Manager</span>
+            </div>
+            <div class="project-links">
+              <a href="https://www.linkedin.com/in/luca-lo-cricchio/" target="_blank" rel="noopener noreferrer" class="project-link"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" class="lucide lucide-external-link"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg> LinkedIn</a>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- ── CERTIFICATIONS ───────────────────────── -->
+      <section id="certifications" aria-labelledby="cert-h2">
+        <div class="cert-header reveal">
+          <p class="section-label" style="justify-content:center;">Credentials</p>
+          <!-- H2 -->
+          <h2 class="cert-heading scramble-heading" id="cert-h2" data-text="Certifications">Certifications</h2>
+        </div>
+        <div class="timeline" id="timeline" role="list" aria-label="List of certifications">
+          <div class="timeline-track" id="timeline-track" aria-hidden="true"></div>
+
+          <!-- First 5 — always visible -->
+          <div class="timeline-item" role="listitem" itemscope itemtype="https://schema.org/EducationalOccupationalCredential">
+            <div class="cert-year"><time datetime="2026" itemprop="dateCreated">2026</time></div>
+            <p class="cert-title" itemprop="name">Computer Science Diploma — Maturità</p>
+            <p class="cert-issuer" itemprop="recognizedBy">ITIS Ettore Molinari, Milan</p>
+          </div>
+          <div class="timeline-item" role="listitem" itemscope itemtype="https://schema.org/EducationalOccupationalCredential">
+            <div class="cert-year"><time datetime="2026" itemprop="dateCreated">2026</time></div>
+            <p class="cert-title" itemprop="name">AI with Machine Learning in Java</p>
+            <p class="cert-issuer" itemprop="recognizedBy">Oracle Academy</p>
+          </div>
+          <div class="timeline-item" role="listitem" itemscope itemtype="https://schema.org/EducationalOccupationalCredential">
+            <div class="cert-year"><time datetime="2026" itemprop="dateCreated">2026</time></div>
+            <p class="cert-title" itemprop="name">Database Programming with SQL</p>
+            <p class="cert-issuer" itemprop="recognizedBy">Oracle Academy</p>
+          </div>
+          <div class="timeline-item" role="listitem" itemscope itemtype="https://schema.org/EducationalOccupationalCredential">
+            <div class="cert-year"><time datetime="2026" itemprop="dateCreated">2026</time></div>
+            <p class="cert-title" itemprop="name">CCNA — Networking Fundamentals</p>
+            <p class="cert-issuer" itemprop="recognizedBy">Cisco Networking Academy</p>
+          </div>
+          <div class="timeline-item" role="listitem" itemscope itemtype="https://schema.org/EducationalOccupationalCredential">
+            <div class="cert-year"><time datetime="2026" itemprop="dateCreated">2026</time></div>
+            <p class="cert-title" itemprop="name">Web Application Security</p>
+            <p class="cert-issuer" itemprop="recognizedBy">Sorint.Lab</p>
+          </div>
+
+          <!-- Hidden extras -->
+          <div class="timeline-item cert-extra hidden" role="listitem" itemscope itemtype="https://schema.org/EducationalOccupationalCredential">
+            <div class="cert-year"><time datetime="2026" itemprop="dateCreated">2026</time></div>
+            <p class="cert-title" itemprop="name">Database Design</p>
+            <p class="cert-issuer" itemprop="recognizedBy">Oracle Academy</p>
+          </div>
+          <div class="timeline-item cert-extra hidden" role="listitem" itemscope itemtype="https://schema.org/EducationalOccupationalCredential">
+            <div class="cert-year"><time datetime="2026" itemprop="dateCreated">2026</time></div>
+            <p class="cert-title" itemprop="name">Database Foundations</p>
+            <p class="cert-issuer" itemprop="recognizedBy">Oracle Academy</p>
+          </div>
+          <div class="timeline-item cert-extra hidden" role="listitem" itemscope itemtype="https://schema.org/EducationalOccupationalCredential">
+            <div class="cert-year"><time datetime="2026" itemprop="dateCreated">2026</time></div>
+            <p class="cert-title" itemprop="name">Docker Fundamentals</p>
+            <p class="cert-issuer" itemprop="recognizedBy">Sorint.Lab</p>
+          </div>
+          <div class="timeline-item cert-extra hidden" role="listitem" itemscope itemtype="https://schema.org/EducationalOccupationalCredential">
+            <div class="cert-year"><time datetime="2026" itemprop="dateCreated">2026</time></div>
+            <p class="cert-title" itemprop="name">Introduction to Cloud with AWS</p>
+            <p class="cert-issuer" itemprop="recognizedBy">Sorint.Lab</p>
+          </div>
+          <div class="timeline-item cert-extra hidden" role="listitem" itemscope itemtype="https://schema.org/EducationalOccupationalCredential">
+            <div class="cert-year"><time datetime="2026" itemprop="dateCreated">2026</time></div>
+            <p class="cert-title" itemprop="name">React Native — Base</p>
+            <p class="cert-issuer" itemprop="recognizedBy">Sorint.Lab</p>
+          </div>
+          <div class="timeline-item cert-extra hidden" role="listitem" itemscope itemtype="https://schema.org/EducationalOccupationalCredential">
+            <div class="cert-year"><time datetime="2026" itemprop="dateCreated">2026</time></div>
+            <p class="cert-title" itemprop="name">Git &amp; GitHub</p>
+            <p class="cert-issuer" itemprop="recognizedBy">Sorint.Lab</p>
+          </div>
+          <div class="timeline-item cert-extra hidden" role="listitem" itemscope itemtype="https://schema.org/EducationalOccupationalCredential">
+            <div class="cert-year"><time datetime="2025" itemprop="dateCreated">2025</time></div>
+            <p class="cert-title" itemprop="name">AI for Developers</p>
+            <p class="cert-issuer" itemprop="recognizedBy">Sorint.Lab</p>
+          </div>
+          <div class="timeline-item cert-extra hidden" role="listitem" itemscope itemtype="https://schema.org/EducationalOccupationalCredential">
+            <div class="cert-year"><time datetime="2025" itemprop="dateCreated">2025</time></div>
+            <p class="cert-title" itemprop="name">Python Programming</p>
+            <p class="cert-issuer" itemprop="recognizedBy">Sorint.Lab</p>
+          </div>
+          <div class="timeline-item cert-extra hidden" role="listitem" itemscope itemtype="https://schema.org/EducationalOccupationalCredential">
+            <div class="cert-year"><time datetime="2025" itemprop="dateCreated">2025</time></div>
+            <p class="cert-title" itemprop="name">HTML, CSS &amp; JavaScript</p>
+            <p class="cert-issuer" itemprop="recognizedBy">Sorint.Lab</p>
+          </div>
+          <div class="timeline-item cert-extra hidden" role="listitem" itemscope itemtype="https://schema.org/EducationalOccupationalCredential">
+            <div class="cert-year"><time datetime="2024" itemprop="dateCreated">2024</time></div>
+            <p class="cert-title" itemprop="name">IT Essentials</p>
+            <p class="cert-issuer" itemprop="recognizedBy">Cisco Networking Academy</p>
+          </div>
+        </div>
+
+        <div class="cert-toggle-wrap">
+          <button class="cert-toggle-btn" id="certExpandBtn" aria-expanded="false" aria-controls="timeline">
+            View all 15 certifications ↓
+          </button>
+          <button class="cert-toggle-btn cert-collapse-btn hidden" id="certCollapseBtn" aria-controls="timeline">
+            Show less ↑
+          </button>
+        </div>
+      </section>
+
+      <!-- ── CV DOWNLOAD ─────────────────────────── -->
+      <section id="download" aria-labelledby="download-h2">
+        <div class="download-inner reveal">
+          <div class="download-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" class="lucide lucide-download download-lucide"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg></div>
+          <!-- H2 -->
+          <h2 class="download-title" id="download-h2">Download my CV</h2>
+          <p class="download-sub">Everything I am, in one document. Real experience, certifications, skills and projects — ready for your evaluation. PDF updated June 2026.</p>
+          <a href="cv-luca-lo-cricchio.pdf" download="CV_Luca_Lo_Cricchio.pdf" class="btn-download" aria-label="Download Luca Lo Cricchio CV as PDF">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v12m0 0l-4-4m4 4l4-4M3 17v2a2 2 0 002 2h14a2 2 0 002-2v-2"/>
+            </svg>
+            CV_Luca_Lo_Cricchio.pdf
+          </a>
+        </div>
+      </section>
+
+      <!-- ── CONTACT ─────────────────────────────── -->
+      <section id="contact" aria-labelledby="contact-h2">
+        <div class="contact-header reveal">
+          <p class="section-label" style="justify-content:center;">Contact</p>
+          <!-- H2 -->
+          <h2 class="contact-heading scramble-heading" id="contact-h2" data-text="Let's build<br>something<br>great.">Let's build<br>something<br>great.</h2>
+          <p class="contact-sub">I have the skills, the energy, and the vision. Whether you need a website, a complete digital system, or a developer who thinks beyond the task — I'm already saying yes. Let's talk.</p>
+        </div>
+        <div class="contact-links reveal">
+          <a href="https://www.linkedin.com/in/luca-lo-cricchio/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn profile of Luca Lo Cricchio">
+            <span class="social-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" class="lucide lucide-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg></span>LinkedIn
+          </a>
+          <a href="https://github.com/Yuke-Skywalker0" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub profile of Luca Lo Cricchio">
+            <span class="social-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" class="lucide lucide-github"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg></span>GitHub
+          </a>
+          <a href="https://lsd-software.github.io" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LSD Software Studio website">
+            <span class="social-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" class="lucide lucide-gamepad-2"><line x1="6" x2="10" y1="11" y2="11"/><line x1="8" x2="8" y1="9" y2="13"/><line x1="15" x2="17" y1="12" y2="12"/><path d="M1.5 5.9A4.9 4.9 0 0 1 6.4 2h11.2a4.9 4.9 0 0 1 4.9 3.9l1 7.1a5 5 0 0 1-4.9 5.7 2.7 2.7 0 0 1-2.6-2v0a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v0a2.7 2.7 0 0 1-2.6 2A5 5 0 0 1 .5 13z"/></svg></span>LSD Software
+          </a>
+          <a href="mailto:lucalocricchio1@gmail.com" class="social-link" aria-label="Send email to Luca Lo Cricchio">
+            <span class="social-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" class="lucide lucide-mail"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></span>Email
+          </a>
+        </div>
+        <p class="contact-email reveal">
+          <a href="mailto:lucalocricchio1@gmail.com">lucalocricchio1@gmail.com</a>
+          &nbsp;·&nbsp;
+          <a href="tel:+393313952050">+39 331 395 2050</a>
+        </p>
+      </section>
+
+    </main><!-- /main -->
+
+    <footer role="contentinfo" itemscope itemtype="https://schema.org/WPFooter">
+      <p>✦ &copy; <time datetime="2026">2026</time> <span itemprop="author">Luca Lo Cricchio</span> &nbsp;|&nbsp; Designed &amp; Built in the void &nbsp;|&nbsp; Monza, Italy ✦</p>
+      <p class="footer-sub">Full Stack Developer · Digital Systems · Marketing Automation · Game Development</p>
+    </footer>
+
+  </div><!-- /site -->
+
+  
+
+</SiteLayout>

@@ -1,0 +1,26 @@
+# robots.txt — Luca Lo Cricchio Portfolio
+# https://yuke-skywalker0.github.io/locricchio-luca/
+
+User-agent: *
+Allow: /
+
+# AI / LLM crawlers — explicitly allowed
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://yuke-skywalker0.github.io/locricchio-luca/sitemap.xml
